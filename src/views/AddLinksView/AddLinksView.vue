@@ -16,20 +16,16 @@ const formsData = ref<{ type: string; url: string }[]>([]);
 const btnDisabled = ref(true);
 
 const handleAddLink = () => {
-  console.log("Adding link");
   formsData.value.push({ type: "", url: "" });
 };
 
 const saveLink = () => {
-  console.log("saving");
   const link = {
     type: formsData.value[formsData.value.length - 1].type,
     url: formsData.value[formsData.value.length - 1].url,
   };
 
   links.value.push(link);
-
-  console.log("Links ", links);
 };
 
 const handleLinkUpdate = (index: number, link: string) => {
@@ -44,17 +40,17 @@ const handleTypeUpdate = (index: number, type: string) => {
 </script>
 
 <template>
-  <article class="add-links">
+  <article class="page-container">
     <Navigation />
 
-    <section class="links">
-      <article class="links__mobile-display grid-content-container">
-        <section class="links__mobile-display-icon">
+    <section class="page-wrapper">
+      <article class="grid-content__left grid-content-container">
+        <section class="page__left-icon">
           <IconPreview :links="links" />
         </section>
       </article>
-      <article class="links__add-link grid-content-container">
-        <section class="links__add-link-inner">
+      <article class="grid-content__right grid-content-container">
+        <section class="grid-content__right-inner">
           <h2 class="page__heading">Customise your links</h2>
           <p class="page__sub-heading">
             Add/edit/remove links below and then share all your profiles with
@@ -69,9 +65,9 @@ const handleTypeUpdate = (index: number, type: string) => {
 
           <section
             v-if="links.length === 0 && !formsData.length"
-            class="links__add-link-content"
+            class="page__gray-box"
           >
-            <article class="links__add-link-container">
+            <article class="page__gray-box--inner">
               <div class="links__add-link-content-icon">
                 <GetStartedIcon />
               </div>
@@ -98,7 +94,7 @@ const handleTypeUpdate = (index: number, type: string) => {
             </section>
           </article>
         </section>
-        <section class="links__add-link-footer">
+        <section class="page-footer">
           <Button
             btnText="Save"
             theme="primary"
@@ -112,87 +108,6 @@ const handleTypeUpdate = (index: number, type: string) => {
 </template>
 
 <style>
-.add-links,
-.links {
-  height: 100vh;
-}
-
-.add-links {
-  display: flex;
-  flex-direction: column;
-}
-
-.links {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 1rem;
-  flex-grow: 1;
-  margin: 2rem 0;
-}
-
-.grid-content-container {
-  background-color: #fff;
-  border-radius: 1rem;
-  display: flex;
-}
-
-.links__mobile-display {
-  grid-area: 1 / 1 / 6 / 6;
-  align-items: center;
-  justify-content: center;
-}
-
-.links__mobile-display-icon {
-  padding: 1rem;
-}
-
-.links__add-link {
-  grid-area: 1 / 6 / 6 / 13;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.page__heading {
-  font-size: 1.5rem;
-  margin: 1.25rem 0;
-  font-weight: bolder;
-}
-
-.page__sub-heading {
-  color: #737373;
-}
-
-.links__add-link-content {
-  text-align: center;
-  background-color: #fafafa;
-  padding: 2rem;
-  border-radius: 1rem;
-}
-
-.links__add-link-inner {
-  padding: 2rem;
-}
-
-.links__add-link-container {
-  max-width: 450px;
-  margin: 0 auto;
-}
-
-.links__add-link-footer {
-  margin-top: auto;
-  border-top: 1px solid #d7d7d7;
-  padding: 0 1rem;
-}
-
-.links__add-link-footer .button__button {
-  max-width: 4.8rem;
-  width: 100%;
-  margin-left: auto;
-  display: block;
-}
-
 .links-form {
   margin-bottom: 2rem;
   padding: 1.5rem;

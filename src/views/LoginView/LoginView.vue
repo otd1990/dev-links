@@ -15,8 +15,6 @@ const passwordErrorMessage = ref<string>("");
 const passwordInputValue = ref<string>("");
 
 const handleBtnClick = () => {
-  console.log("Button Clicked");
-
   if (passwordInputValue.value === "") {
     passwordInputState.value = "error";
     passwordErrorMessage.value = "Please check again";

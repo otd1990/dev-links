@@ -29,7 +29,6 @@ defineEmits<{
 const isOpen = ref<boolean>(false);
 
 const handleClick = () => {
-  console.log("CLICK");
   isOpen.value = !isOpen.value;
 };
 </script>

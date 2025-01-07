@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Button from "../Button/Button.vue";
 import LinkIcon from "../../assets/images/icon-link.svg";
+import ProfileDetails from "../../assets/images/icon-profile-details-header.svg";
 
 const router = useRouter();
+const currentRouteName = ref(router.currentRoute.value.name);
 
 const handlePreviewClick = () => {
   router.push({ path: "/preview" });
@@ -15,11 +18,30 @@ const handlePreviewClick = () => {
     <h1 class="navigation__logo">devlinks</h1>
     <nav class="navigation__nav">
       <ul class="navigation__nav-list">
-        <li class="navigation__nav-list-item navigation__nav-list-item--active">
-          <LinkIcon class="base-icon" :style="{ fill: '#efebff' }" />
-          Links
+        <li
+          class="navigation__nav-list-item"
+          :class="{
+            'navigation__nav-list-item--active':
+              currentRouteName === 'addLinks',
+          }"
+        >
+          <router-link to="/add-links">
+            <LinkIcon class="base-icon" :style="{ fill: '#efebff' }" />
+            Links
+          </router-link>
         </li>
-        <li class="navigation__nav-list-item">Profile Details</li>
+        <li
+          class="navigation__nav-list-item"
+          :class="{
+            'navigation__nav-list-item--active':
+              currentRouteName === 'profileDetails',
+          }"
+        >
+          <router-link to="/profile-details">
+            <ProfileDetails class="base-icon" :style="{ fill: '#efebff' }" />
+            Profile Details
+          </router-link>
+        </li>
       </ul>
     </nav>
     <Button
@@ -63,6 +85,14 @@ const handlePreviewClick = () => {
   border-radius: 6px;
   color: #737373;
   font-size: 0.75rem;
+
+  > a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 }
 
 .navigation__nav-list-item--active {
