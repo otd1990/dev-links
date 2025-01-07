@@ -1,0 +1,18 @@
+.form__label {
+  display: block;
+  color: #333;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.form__input {
+  border: 1px solid rgba(167, 167, 167, 0.5);
+  width: 100%;
+  padding: 0.85rem 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #fff;
+}
