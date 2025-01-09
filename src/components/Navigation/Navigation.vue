@@ -9,6 +9,10 @@ interface INavigationProps {
   theme?: "primary" | "preview";
 }
 
+defineEmits<{
+  (e: "shareLink"): void;
+}>();
+
 withDefaults(defineProps<INavigationProps>(), {
   theme: "primary",
 });
@@ -84,7 +88,7 @@ const shareLink = () => {
         btnText="Share Link"
         theme="primary"
         :noMargin="true"
-        @click="shareLink"
+        @click="$emit('shareLink')"
       />
     </section>
   </article>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import Alert from "../../components/Alert/Alert.vue";
 import RightArrow from "../../assets/images/icon-arrow-right.svg";
 import CopiedLink from "../../assets/images/icon-link-copied-to-clipboard.svg";
 import Navigation from "../../components/Navigation/Navigation.vue";
@@ -20,6 +21,7 @@ const storedProfileDetails = localStorage.getItem("profileDetails");
 const links = localStorage.getItem("socialLinks");
 const profileDetails: any = ref({});
 const socialLinks: any = ref([]);
+const showAlert = ref<boolean>(false);
 
 const checkItems = () => {
   if (!storedProfileDetails) return;
@@ -35,6 +37,14 @@ const checkItems = () => {
   }
 };
 
+const handleShare = () => {
+  showAlert.value = true;
+
+  setTimeout(() => {
+    showAlert.value = false;
+  }, 3000);
+};
+
 onMounted(async () => {
   await checkItems();
 });
@@ -43,7 +53,7 @@ onMounted(async () => {
 <template>
   <article class="preview-view">
     <section class="preview-view__top">
-      <Navigation theme="preview" />
+      <Navigation theme="preview" @shareLink="handleShare" />
     </section>
     <section class="preview-view__mid">
       <article class="profile__preview-container">
@@ -78,8 +88,14 @@ onMounted(async () => {
       </article>
     </section>
     <section class="preview-view__bottom">
-      <CopiedLink />
-      The link has been copied to your clipboard
+      <Alert v-if="showAlert">
+        <template #icon>
+          <CopiedLink />
+        </template>
+        <template #content>
+          The link has been copied to your clipboard
+        </template>
+      </Alert>
     </section>
   </article>
 </template>
@@ -148,7 +164,6 @@ body {
   margin-top: 3.6rem;
 }
 
-.preview-view__bottom,
 .profile__details-links-item {
   min-height: 56px;
   padding: 0 1rem;
@@ -159,19 +174,7 @@ body {
   display: flex;
   align-items: center;
   font-size: 0.75rem;
-}
-
-.profile__details-links-item {
   min-width: 237px;
   justify-content: space-between;
-}
-
-.preview-view__bottom {
-  min-width: 300px;
-  width: fit-content;
-  margin: 0 auto;
-  gap: 0.5rem;
-  background-color: #333;
-  margin-top: 3.8rem;
 }
 </style>
