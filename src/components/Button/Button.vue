@@ -41,6 +41,7 @@ withDefaults(defineProps<IButtonProps>(), {
   border: 0;
   min-height: 2.5rem;
   cursor: pointer;
+  padding: 0 0.5rem;
 }
 
 .button__button--no-margin {

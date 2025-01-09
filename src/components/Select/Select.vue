@@ -18,6 +18,7 @@ interface ISelectProps {
 withDefaults(defineProps<ISelectProps>(), {
   label: "Select",
   id: "select",
+  // @ts-ignore
   options: [],
   modelValue: "",
 });

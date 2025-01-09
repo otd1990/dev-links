@@ -9,23 +9,51 @@ import IconPreview from "../../components/IconPreview/IconPreview.vue";
 interface Link {
   type: string;
   url: string;
+  icon: string;
+  colour: string;
 }
 
-const links = ref<Link[]>([]);
-const formsData = ref<{ type: string; url: string }[]>([]);
+const storedLinks = localStorage.getItem("socialLinks");
+
+const links = ref<Link[]>(storedLinks ? JSON.parse(storedLinks) : []);
+const formsData = ref<
+  { type: string; url: string; icon: string; colour: string }[]
+>(Object.keys(links).length > 0 ? links.value : []);
+
+console.log("FORMS DATA ", formsData.value);
+
 const btnDisabled = ref(true);
 
+const getColorForType = (type: string): string => {
+  switch (type) {
+    case "Linkedin":
+      return "#2e68ff";
+    case "YouTube":
+      return "#ee3939";
+    case "GitHub":
+    case "GitLab":
+      return "#1a1a1a";
+    default:
+      return "#AAA"; // Default color if type doesn't match
+  }
+};
+
 const handleAddLink = () => {
-  formsData.value.push({ type: "", url: "" });
+  formsData.value.push({ type: "", url: "", icon: "", colour: "" });
 };
 
 const saveLink = () => {
+  const index = formsData.value.length - 1;
   const link = {
-    type: formsData.value[formsData.value.length - 1].type,
-    url: formsData.value[formsData.value.length - 1].url,
+    type: formsData.value[index].type,
+    url: formsData.value[index].url,
+    icon: formsData.value[index].icon,
+    colour: formsData.value[index].colour,
   };
 
   links.value.push(link);
+
+  localStorage.setItem("socialLinks", JSON.stringify(links.value));
 };
 
 const handleLinkUpdate = (index: number, link: string) => {
@@ -33,8 +61,11 @@ const handleLinkUpdate = (index: number, link: string) => {
   btnDisabled.value = false;
 };
 
-const handleTypeUpdate = (index: number, type: string) => {
+const handleTypeUpdate = (index: number, type: string, icon: string) => {
+  console.log("indec ", index, " type ", type, " icon ", icon);
   formsData.value[index].type = type;
+  formsData.value[index].icon = icon;
+  formsData.value[index].colour = getColorForType(type);
   btnDisabled.value = false;
 };
 </script>
@@ -89,7 +120,7 @@ const handleTypeUpdate = (index: number, type: string) => {
                 :link="form.url"
                 :type="form.type"
                 @linkUpdate="handleLinkUpdate(index, $event)"
-                @typeUpdate="handleTypeUpdate(index, $event)"
+                @typeUpdate="(type: string, icon: string) => handleTypeUpdate(index, type, icon)"
               />
             </section>
           </article>

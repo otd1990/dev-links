@@ -36,3 +36,19 @@ main {
 .text-center {
   text-align: center;
 }
+
+.text-left {
+  text-align: left;
+}
+
+.font-sm {
+  font-size: 0.8rem;
+}
+
+.error-message {
+  color: #ff3939;
+}
+
+.align-self-center {
+  align-self: center;
+}
