@@ -25,9 +25,6 @@ const profileDetails = reactive(
 const errorMessage = ref("");
 
 const saveLink = () => {
-  console.log("saving");
-  console.log(profileDetails);
-
   localStorage.setItem("profileDetails", JSON.stringify(profileDetails));
 };
 
@@ -66,16 +63,14 @@ const handleProfilePicture = (e: Event) => {
 
   if (file) {
     const reader = new FileReader();
-    console.log(file);
     reader.onload = () => {
       const img = new Image();
       img.onload = () => {
-        console.log("IMMMMG ", img);
         const isAccepted = isFileAcceptable(img, file);
         // Check dimensions
         if (isAccepted.acceptable) {
           errorMessage.value = "";
-          profilePicture.value = reader.result as string; // Set profile picture
+          profileDetails.pic = reader.result as string;
         } else {
           errorMessage.value = isAccepted.reason;
         }

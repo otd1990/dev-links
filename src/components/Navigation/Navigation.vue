@@ -17,7 +17,6 @@ const router = useRouter();
 const currentRouteName = ref(router.currentRoute.value.name);
 
 const handlePreviewClick = () => {
-  console.log(router);
   router.push("/preview");
 };
 
@@ -73,13 +72,14 @@ const shareLink = () => {
       v-if="theme === 'preview'"
       class="navigation__theme-preview navigation__wrapper"
     >
-      <router-link to="/preview">
-        <Button
-          btnText="Back to Editor"
-          theme="primary-clear"
-          :noMargin="true"
-        />
-      </router-link>
+      <!-- <router-link to="/profile-details"> -->
+      <Button
+        btnText="Back to Editor"
+        theme="primary-clear"
+        :noMargin="true"
+        @click="$router.back()"
+      />
+      <!-- </router-link> -->
       <Button
         btnText="Share Link"
         theme="primary"
