@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import getIconPath from "../../composables/getIconPath";
+import getColorForType from "../../composables/getColorForType";
 
 interface IProps {
   links: any;
@@ -13,20 +14,6 @@ const props = withDefaults(defineProps<IProps>(), {
 const linkCount = computed(() => {
   return props.links.length;
 });
-
-const getColorForType = (type: string): string => {
-  switch (type) {
-    case "Linkedin":
-      return "#2e68ff";
-    case "YouTube":
-      return "#ee3939";
-    case "GitHub":
-    case "GitLab":
-      return "#1a1a1a";
-    default:
-      return "#AAA"; // Default color if type doesn't match
-  }
-};
 
 const getColours = (links: Array<{ type: string }>): string[] => {
   return links.map((link) => getColorForType(link.type));

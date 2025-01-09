@@ -49,6 +49,10 @@
   color: #737373;
 }
 
+.page__sub-heading + .page__sub-heading {
+  margin: 1rem 0;
+}
+
 .page-footer {
   margin-top: auto;
   border-top: 1px solid #d7d7d7;

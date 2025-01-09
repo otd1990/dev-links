@@ -7,6 +7,7 @@ import GetStartedIcon from "../../assets/images/illustration-empty.svg";
 import AddLinkForm from "../../components/AddLinkForm/AddLinkForm.vue";
 import IconPreview from "../../components/IconPreview/IconPreview.vue";
 import Alert from "../../components/Alert/Alert.vue";
+import getColorForType from "../../composables/getColorForType";
 
 interface Link {
   type: string;
@@ -22,20 +23,6 @@ const formsData = ref(links.value.map((link) => ({ ...link })));
 
 const btnDisabled = ref(true);
 const showAlert = ref(false);
-
-const getColorForType = (type: string): string => {
-  switch (type) {
-    case "Linkedin":
-      return "#2e68ff";
-    case "YouTube":
-      return "#ee3939";
-    case "GitHub":
-    case "GitLab":
-      return "#1a1a1a";
-    default:
-      return "#AAA"; // Default color if type doesn't match
-  }
-};
 
 const saveLink = () => {
   links.value = formsData.value.map((form) => ({ ...form }));
@@ -88,7 +75,12 @@ const handleTypeUpdate = (index: number, type: string, icon: string) => {
             the world!
           </p>
 
+          <p v-if="links.length >= 5" class="page__sub-heading">
+            Can't add more than 5 links, please remove some to add more
+          </p>
+
           <Button
+            v-if="links.length < 5"
             btnText="+ Add new link"
             theme="primary-clear"
             @btnClicked="handleAddLink"
@@ -106,7 +98,7 @@ const handleTypeUpdate = (index: number, type: string, icon: string) => {
               <p class="page__sub-heading">
                 Use the "Add new link" button to get started. Once you have more
                 than one link, you can reorder and edit them. We're here to help
-                you share your profiles with everyone!
+                you share your profiles with everyone! sdfdsfdsfdsfds
               </p>
             </article>
           </section>
