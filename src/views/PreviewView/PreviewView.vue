@@ -37,8 +37,6 @@ const checkItems = () => {
 
 onMounted(async () => {
   await checkItems();
-
-  console.log("PROFILE DETAILS ", profileDetails);
 });
 </script>
 

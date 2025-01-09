@@ -20,8 +20,6 @@ const formsData = ref<
   { type: string; url: string; icon: string; colour: string }[]
 >(Object.keys(links).length > 0 ? links.value : []);
 
-console.log("FORMS DATA ", formsData.value);
-
 const btnDisabled = ref(true);
 
 const getColorForType = (type: string): string => {
@@ -62,7 +60,6 @@ const handleLinkUpdate = (index: number, link: string) => {
 };
 
 const handleTypeUpdate = (index: number, type: string, icon: string) => {
-  console.log("indec ", index, " type ", type, " icon ", icon);
   formsData.value[index].type = type;
   formsData.value[index].icon = icon;
   formsData.value[index].colour = getColorForType(type);

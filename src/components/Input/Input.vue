@@ -24,8 +24,6 @@ const props = withDefaults(defineProps<IInputProps>(), {
   icon: "",
 });
 
-console.log("RPOPS ", props);
-
 const emits = defineEmits<{
   (e: "update:modelValue", value: string | number): void;
 }>();

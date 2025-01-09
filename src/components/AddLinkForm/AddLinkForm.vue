@@ -41,8 +41,6 @@ const handleInput = (e: Event) => {
   emits("linkUpdate", value);
 };
 
-console.log("LINK ", link.value, " ... ");
-
 watch(type, (newType: string, _) => {
   const selected = options.find(
     (option) => option.label.toLowerCase() === newType.toLowerCase()
@@ -50,7 +48,6 @@ watch(type, (newType: string, _) => {
 
   const iconName = selected?.iconName ? selected.iconName : "";
 
-  console.log("ICON NAME ", selected?.iconName);
   emits("typeUpdate", newType, iconName);
 });
 </script>
