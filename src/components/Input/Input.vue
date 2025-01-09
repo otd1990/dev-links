@@ -4,25 +4,27 @@ import getIconPath from "../../composables/getIconPath";
 
 interface IInputProps {
   type: string;
-  label: string;
+  label?: string;
   state?: string;
   errorMessage?: string;
   placeholder?: string;
   id: string;
   modelValue: string;
-  icon: string;
+  icon?: string;
 }
 
 const props = withDefaults(defineProps<IInputProps>(), {
   type: "text",
-  label: "input label",
+  label: "",
   state: "",
   placeholder: "",
   errorMessage: "",
   id: "",
   modelValue: "",
-  icon: "email",
+  icon: "",
 });
+
+console.log("RPOPS ", props);
 
 const emits = defineEmits<{
   (e: "update:modelValue", value: string | number): void;
@@ -38,7 +40,7 @@ const updateValue = (event: Event) => {
 
 <template>
   <article class="input" :class="{ 'input--error': state === 'error' }">
-    <label :for="id" class="form__label">{{ label }}</label>
+    <label v-if="label !== ''" :for="id" class="form__label">{{ label }}</label>
     <section :class="`form__input input__input--${state}`">
       <img :src="getIconPath(icon)" :alt="icon" class="input__icon" />
       <input

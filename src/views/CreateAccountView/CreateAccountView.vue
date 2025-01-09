@@ -3,8 +3,6 @@ import { ref } from "vue";
 import Input from "../../components/Input/Input.vue";
 import Button from "../../components/Button/Button.vue";
 
-console.log("CREATE ACCOUNT VIEW");
-
 const inputState = ref<string>("");
 const errorMessage = ref<string>("");
 const emailInputValue = ref<string>("");
@@ -18,8 +16,6 @@ const passwordConfirmErrorMessage = ref<string>("");
 const passwordConfirmInputValue = ref<string>("");
 
 const handleBtnClick = () => {
-  console.log("Button Clicked");
-
   if (passwordInputValue.value === "") {
     passwordInputState.value = "error";
     passwordErrorMessage.value = "Please check again";

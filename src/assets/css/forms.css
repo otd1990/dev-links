@@ -16,3 +16,25 @@
   gap: 0.5rem;
   background-color: #fff;
 }
+
+.form__group--inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.form__group--inline + .form__group--inline {
+  margin-top: 1rem;
+}
+
+label.form__group--inline-label {
+  color: #737373 !important;
+  font-size: 0.8rem;
+  flex: 1 0 30%;
+  text-align: left !important;
+}
+
+.form__group--inline-input {
+  width: 100%;
+}

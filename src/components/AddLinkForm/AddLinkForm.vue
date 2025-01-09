@@ -5,11 +5,21 @@ import Select from "../Select/Select.vue";
 
 const emits = defineEmits<{
   (e: "linkUpdate", value: string): void;
-  (e: "typeUpdate", value: string): void;
+  (e: "typeUpdate", value: string, iconName: string): void;
 }>();
 
-const link = ref<string>("");
-const type = ref<string>("");
+interface IProps {
+  link: string;
+  type: string;
+}
+
+const props = withDefaults(defineProps<IProps>(), {
+  link: "",
+  type: "",
+});
+
+const link = ref<string>(props.link);
+const type = ref<string>(props.type);
 
 const options = [
   { label: "CodePen", iconName: "codepen" },
@@ -28,12 +38,20 @@ const options = [
 
 const handleInput = (e: Event) => {
   const value = (e.target as HTMLInputElement).value;
-
   emits("linkUpdate", value);
 };
 
+console.log("LINK ", link.value, " ... ");
+
 watch(type, (newType: string, _) => {
-  emits("typeUpdate", newType);
+  const selected = options.find(
+    (option) => option.label.toLowerCase() === newType.toLowerCase()
+  );
+
+  const iconName = selected?.iconName ? selected.iconName : "";
+
+  console.log("ICON NAME ", selected?.iconName);
+  emits("typeUpdate", newType, iconName);
 });
 </script>
 

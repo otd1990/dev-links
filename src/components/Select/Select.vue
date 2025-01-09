@@ -18,6 +18,7 @@ interface ISelectProps {
 withDefaults(defineProps<ISelectProps>(), {
   label: "Select",
   id: "select",
+  // @ts-ignore
   options: [],
   modelValue: "",
 });
@@ -29,7 +30,6 @@ defineEmits<{
 const isOpen = ref<boolean>(false);
 
 const handleClick = () => {
-  console.log("CLICK");
   isOpen.value = !isOpen.value;
 };
 </script>

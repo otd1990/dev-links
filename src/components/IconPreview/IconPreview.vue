@@ -2,7 +2,7 @@
 import PhoneIcon from "../PhoneIcon/PhoneIcon.vue";
 
 interface IProps {
-  links: any;
+  links?: any;
 }
 
 withDefaults(defineProps<IProps>(), {

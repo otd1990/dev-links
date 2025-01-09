@@ -9,27 +9,51 @@ import IconPreview from "../../components/IconPreview/IconPreview.vue";
 interface Link {
   type: string;
   url: string;
+  icon: string;
+  colour: string;
 }
 
-const links = ref<Link[]>([]);
-const formsData = ref<{ type: string; url: string }[]>([]);
+const storedLinks = localStorage.getItem("socialLinks");
+
+const links = ref<Link[]>(storedLinks ? JSON.parse(storedLinks) : []);
+const formsData = ref<
+  { type: string; url: string; icon: string; colour: string }[]
+>(Object.keys(links).length > 0 ? links.value : []);
+
+console.log("FORMS DATA ", formsData.value);
+
 const btnDisabled = ref(true);
 
+const getColorForType = (type: string): string => {
+  switch (type) {
+    case "Linkedin":
+      return "#2e68ff";
+    case "YouTube":
+      return "#ee3939";
+    case "GitHub":
+    case "GitLab":
+      return "#1a1a1a";
+    default:
+      return "#AAA"; // Default color if type doesn't match
+  }
+};
+
 const handleAddLink = () => {
-  console.log("Adding link");
-  formsData.value.push({ type: "", url: "" });
+  formsData.value.push({ type: "", url: "", icon: "", colour: "" });
 };
 
 const saveLink = () => {
-  console.log("saving");
+  const index = formsData.value.length - 1;
   const link = {
-    type: formsData.value[formsData.value.length - 1].type,
-    url: formsData.value[formsData.value.length - 1].url,
+    type: formsData.value[index].type,
+    url: formsData.value[index].url,
+    icon: formsData.value[index].icon,
+    colour: formsData.value[index].colour,
   };
 
   links.value.push(link);
 
-  console.log("Links ", links);
+  localStorage.setItem("socialLinks", JSON.stringify(links.value));
 };
 
 const handleLinkUpdate = (index: number, link: string) => {
@@ -37,24 +61,27 @@ const handleLinkUpdate = (index: number, link: string) => {
   btnDisabled.value = false;
 };
 
-const handleTypeUpdate = (index: number, type: string) => {
+const handleTypeUpdate = (index: number, type: string, icon: string) => {
+  console.log("indec ", index, " type ", type, " icon ", icon);
   formsData.value[index].type = type;
+  formsData.value[index].icon = icon;
+  formsData.value[index].colour = getColorForType(type);
   btnDisabled.value = false;
 };
 </script>
 
 <template>
-  <article class="add-links">
+  <article class="page-container">
     <Navigation />
 
-    <section class="links">
-      <article class="links__mobile-display grid-content-container">
-        <section class="links__mobile-display-icon">
+    <section class="page-wrapper">
+      <article class="grid-content__left grid-content-container">
+        <section class="page__left-icon">
           <IconPreview :links="links" />
         </section>
       </article>
-      <article class="links__add-link grid-content-container">
-        <section class="links__add-link-inner">
+      <article class="grid-content__right grid-content-container">
+        <section class="grid-content__right-inner">
           <h2 class="page__heading">Customise your links</h2>
           <p class="page__sub-heading">
             Add/edit/remove links below and then share all your profiles with
@@ -69,9 +96,9 @@ const handleTypeUpdate = (index: number, type: string) => {
 
           <section
             v-if="links.length === 0 && !formsData.length"
-            class="links__add-link-content"
+            class="page__gray-box"
           >
-            <article class="links__add-link-container">
+            <article class="page__gray-box--inner">
               <div class="links__add-link-content-icon">
                 <GetStartedIcon />
               </div>
@@ -93,12 +120,12 @@ const handleTypeUpdate = (index: number, type: string) => {
                 :link="form.url"
                 :type="form.type"
                 @linkUpdate="handleLinkUpdate(index, $event)"
-                @typeUpdate="handleTypeUpdate(index, $event)"
+                @typeUpdate="(type: string, icon: string) => handleTypeUpdate(index, type, icon)"
               />
             </section>
           </article>
         </section>
-        <section class="links__add-link-footer">
+        <section class="page-footer">
           <Button
             btnText="Save"
             theme="primary"
@@ -112,87 +139,6 @@ const handleTypeUpdate = (index: number, type: string) => {
 </template>
 
 <style>
-.add-links,
-.links {
-  height: 100vh;
-}
-
-.add-links {
-  display: flex;
-  flex-direction: column;
-}
-
-.links {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 1rem;
-  flex-grow: 1;
-  margin: 2rem 0;
-}
-
-.grid-content-container {
-  background-color: #fff;
-  border-radius: 1rem;
-  display: flex;
-}
-
-.links__mobile-display {
-  grid-area: 1 / 1 / 6 / 6;
-  align-items: center;
-  justify-content: center;
-}
-
-.links__mobile-display-icon {
-  padding: 1rem;
-}
-
-.links__add-link {
-  grid-area: 1 / 6 / 6 / 13;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.page__heading {
-  font-size: 1.5rem;
-  margin: 1.25rem 0;
-  font-weight: bolder;
-}
-
-.page__sub-heading {
-  color: #737373;
-}
-
-.links__add-link-content {
-  text-align: center;
-  background-color: #fafafa;
-  padding: 2rem;
-  border-radius: 1rem;
-}
-
-.links__add-link-inner {
-  padding: 2rem;
-}
-
-.links__add-link-container {
-  max-width: 450px;
-  margin: 0 auto;
-}
-
-.links__add-link-footer {
-  margin-top: auto;
-  border-top: 1px solid #d7d7d7;
-  padding: 0 1rem;
-}
-
-.links__add-link-footer .button__button {
-  max-width: 4.8rem;
-  width: 100%;
-  margin-left: auto;
-  display: block;
-}
-
 .links-form {
   margin-bottom: 2rem;
   padding: 1.5rem;

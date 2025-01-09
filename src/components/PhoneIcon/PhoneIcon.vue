@@ -11,7 +11,6 @@ const props = withDefaults(defineProps<IProps>(), {
 });
 
 const linkCount = computed(() => {
-  console.log("PROPS DOT LINKS ", props.links);
   return props.links.length;
 });
 
