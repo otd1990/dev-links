@@ -117,7 +117,7 @@ body {
   background-color: #633cff;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  padding: 1.25rem;
+  padding: 1.5rem;
 }
 
 .preview-view__mid,
@@ -199,5 +199,11 @@ body {
 .profile__details-icon {
   filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%)
     hue-rotate(49deg) brightness(102%) contrast(101%);
+}
+
+@media only screen and (max-width: 767px) {
+  .preview-view__top .navigation {
+    margin-top: 0;
+  }
 }
 </style>

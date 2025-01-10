@@ -152,4 +152,10 @@ const shareLink = () => {
 .navigation__theme-preview article {
   width: auto !important;
 }
+
+@media only screen and (max-width: 767px) {
+  .navigation {
+    margin-top: 1.5rem;
+  }
+}
 </style>

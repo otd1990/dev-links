@@ -77,3 +77,17 @@
   max-width: 450px;
   margin: 0 auto;
 }
+
+@media only screen and (max-width: 767px) {
+  .page-container {
+    padding: 0 1.5rem;
+  }
+
+  .grid-content__left {
+    display: none;
+  }
+
+  .grid-content__right {
+    grid-column-start: 1;
+  }
+}
