@@ -47,6 +47,7 @@ main {
 
 .error-message {
   color: #ff3939;
+  margin-bottom: 0.5rem;
 }
 
 .align-self-center {
