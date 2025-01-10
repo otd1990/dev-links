@@ -4,6 +4,7 @@ import Alert from "../../components/Alert/Alert.vue";
 import RightArrow from "../../assets/images/icon-arrow-right.svg";
 import CopiedLink from "../../assets/images/icon-link-copied-to-clipboard.svg";
 import Navigation from "../../components/Navigation/Navigation.vue";
+import getIconPath from "../../composables/getIconPath";
 
 const defaultProfileDetails = {
   pic: "",
@@ -79,9 +80,16 @@ onMounted(async () => {
             class="profile__details-links-item"
             :style="{ background: link.colour }"
           >
-            <span class="profile__details-links-item-name">
-              {{ link.type }}
-            </span>
+            <section class="profile__details-type-container">
+              <img
+                :src="getIconPath(link.icon)"
+                :alt="link.type"
+                class="profile__details-icon"
+              />
+              <span class="profile__details-links-item-name">
+                {{ link.type }}
+              </span>
+            </section>
             <RightArrow />
           </article>
         </section>
@@ -173,8 +181,23 @@ body {
   color: #fff;
   display: flex;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   min-width: 237px;
   justify-content: space-between;
+}
+
+.profile__details-type-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile__details-links-item + .profile__details-links-item {
+  margin-top: 0.5rem;
+}
+
+.profile__details-icon {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%)
+    hue-rotate(49deg) brightness(102%) contrast(101%);
 }
 </style>

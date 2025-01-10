@@ -23,9 +23,39 @@ const profileDetails = reactive(
 );
 // const btnDisabled = ref(true);
 const errorMessage = ref("");
+const formError = ref("");
+
+const validateForm = (formDetails: any) => {
+  if (formDetails.email === "") {
+    return {
+      valid: false,
+      reason: "Email cannot be blank",
+    };
+  }
+
+  if (formDetails.fName === "" || formDetails.lName === "") {
+    return {
+      valid: false,
+      reason: "First name and last name must be entered",
+    };
+  }
+
+  return {
+    valid: true,
+    reason: "",
+  };
+};
 
 const saveLink = () => {
-  localStorage.setItem("profileDetails", JSON.stringify(profileDetails));
+  formError.value = "";
+
+  const isValid = validateForm(profileDetails);
+  if (isValid.valid) {
+    localStorage.setItem("profileDetails", JSON.stringify(profileDetails));
+    return;
+  }
+
+  formError.value = isValid.reason;
 };
 
 const isFileAcceptable = (image: any, file: any): ValidationImage => {
@@ -154,6 +184,9 @@ const handleProfilePicture = (e: Event) => {
           </section>
 
           <section class="page__gray-box profile-page__details">
+            <p v-if="formError !== ''" class="error-message">
+              {{ formError }}
+            </p>
             <div class="form__group--inline">
               <label for="firstName" class="form__group--inline-label">
                 First name
