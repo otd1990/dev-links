@@ -109,7 +109,7 @@ body {
   background-color: #633cff;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  padding: 1.25rem;
+  padding: 1.5rem;
 }
 
 .preview-view__mid,
@@ -176,5 +176,11 @@ body {
   font-size: 0.75rem;
   min-width: 237px;
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 767px) {
+  .preview-view__top .navigation {
+    margin-top: 0;
+  }
 }
 </style>
