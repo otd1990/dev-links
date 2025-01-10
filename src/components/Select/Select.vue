@@ -42,7 +42,7 @@ const handleClick = () => {
         <div class="custom-select__selected" @click="handleClick">
           <img
             v-if="modelValue"
-            :src="getIconPath(modelValue.toLowerCase())"
+            :src="getIconPath(options.find((option: Option) => option.label === modelValue)?.iconName || '')"
             alt="Selected icon"
             class="custom-select__icon"
           />
