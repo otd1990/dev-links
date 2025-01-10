@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import draggable from "vuedraggable";
 import ChangesSaved from "../../assets/images/icon-changes-saved.svg";
+import DragIcon from "../../assets/images/icon-drag-and-drop.svg";
 import Navigation from "../../components/Navigation/Navigation.vue";
 import Button from "../../components/Button/Button.vue";
 import GetStartedIcon from "../../assets/images/illustration-empty.svg";
@@ -55,6 +57,20 @@ const handleTypeUpdate = (index: number, type: string, icon: string) => {
   formsData.value[index].colour = getColorForType(type);
   btnDisabled.value = false;
 };
+
+const removeLink = (linkIndex: number) => {
+  links.value = links.value.filter((_, index) => index !== linkIndex);
+  formsData.value = formsData.value.filter((_, index) => index !== linkIndex);
+
+  localStorage.setItem("socialLinks", JSON.stringify(links.value));
+};
+
+const handleOrderChange = (updateLinks: any) => {
+  links.value = updateLinks;
+  formsData.value = updateLinks;
+
+  localStorage.setItem("socialLinks", JSON.stringify(links.value));
+};
 </script>
 
 <template>
@@ -103,18 +119,40 @@ const handleTypeUpdate = (index: number, type: string, icon: string) => {
             </article>
           </section>
           <article class="links__added-container">
-            <section
-              v-for="(form, index) in formsData"
-              :key="index"
-              class="links-form"
+            <draggable
+              v-model="formsData"
+              tag="section"
+              item-key="icon"
+              :animation="300"
+              @change="handleOrderChange(formsData)"
             >
-              <AddLinkForm
-                :link="form.url"
-                :type="form.type"
-                @linkUpdate="handleLinkUpdate(index, $event)"
-                @typeUpdate="(type: string, icon: string) => handleTypeUpdate(index, type, icon)"
-              />
-            </section>
+              <template #item="{ element: form, index }">
+                <article class="links-form">
+                  <section class="links-added-controls">
+                    <div class="links-added-controls__move">
+                      <DragIcon />
+                      <h4 class="links-added-controls__number">
+                        Link #{{ index + 1 }}
+                      </h4>
+                    </div>
+                    <div class="links-added-controls__remove">
+                      <Button
+                        btnText="Remove"
+                        theme="link"
+                        :no-margin="true"
+                        @btnClicked="removeLink(index)"
+                      />
+                    </div>
+                  </section>
+                  <AddLinkForm
+                    :link="form.url"
+                    :type="form.type"
+                    @linkUpdate="handleLinkUpdate(index, $event)"
+                    @typeUpdate="(type: string, icon: string) => handleTypeUpdate(index, type, icon)"
+                  />
+                </article>
+              </template>
+            </draggable>
           </article>
         </section>
         <section class="page-footer">
@@ -138,8 +176,8 @@ const handleTypeUpdate = (index: number, type: string, icon: string) => {
 
 <style scoped>
 .links-form {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding: 1.25rem;
   background: #fafafa;
   border-radius: 1rem;
 }
@@ -154,5 +192,24 @@ const handleTypeUpdate = (index: number, type: string, icon: string) => {
   height: auto;
   right: 25%;
   left: 25%;
+}
+
+.links-added-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.links-added-controls__number {
+  color: #737373;
+  font-size: 1rem;
+}
+
+.links-added-controls__move {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
 }
 </style>
