@@ -2,7 +2,7 @@
 interface IButtonProps {
   btnText: string;
   noMargin?: boolean;
-  theme: "primary" | "secondary" | "primary-clear";
+  theme: "primary" | "secondary" | "primary-clear" | "link";
   isDisabled?: boolean;
 }
 withDefaults(defineProps<IButtonProps>(), {
@@ -69,5 +69,12 @@ withDefaults(defineProps<IButtonProps>(), {
 
 .button__button--primary.button__button--disabled {
   background-color: #beadff;
+}
+
+.button__button--link {
+  background-color: transparent;
+  border: none;
+  color: #737373;
+  opacity: 0.7;
 }
 </style>

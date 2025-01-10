@@ -38,7 +38,7 @@ const handleClick = () => {
   <article class="select">
     <label :for="id" class="form__label">{{ label }}</label>
     <section class="custom-select__wrapper">
-      <div class="custom-select">
+      <div class="custom-select" :class="{ 'custom-select--is-open': isOpen }">
         <div class="custom-select__selected" @click="handleClick">
           <img
             v-if="modelValue"
@@ -58,6 +58,9 @@ const handleClick = () => {
             v-for="option in options"
             :key="option.label"
             class="custom-select__option"
+            :class="{
+              'custom-select__option--selected': option.label === modelValue,
+            }"
             @click="
               $emit('update:modelValue', option.label);
               isOpen = false;
@@ -134,6 +137,15 @@ const handleClick = () => {
   background-color: #f5f5f5;
 }
 
+.custom-select__option--selected {
+  color: #633cff;
+}
+
+.custom-select__option--selected img {
+  filter: brightness(0) saturate(100%) invert(25%) sepia(84%) saturate(6172%)
+    hue-rotate(250deg) brightness(107%) contrast(101%);
+}
+
 .custom-select__option-icon {
   width: 20px;
   height: 20px;
@@ -145,5 +157,10 @@ const handleClick = () => {
   right: 0.55rem;
   bottom: auto;
   top: auto;
+}
+
+.custom-select--is-open {
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  border-color: #beadff;
 }
 </style>
