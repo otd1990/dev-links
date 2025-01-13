@@ -4,6 +4,7 @@ import LogoLg from "../../assets/images/logo-devlinks-large.svg";
 import LogoSm from "../../assets/images/logo-devlinks-small.svg";
 import Input from "../../components/Input/Input.vue";
 import Button from "../../components/Button/Button.vue";
+import isEmailValid from "../../composables/isEmailValid";
 
 const inputState = ref<string>("");
 const errorMessage = ref<string>("");
@@ -17,7 +18,20 @@ const passwordConfirmInputState = ref<string>("");
 const passwordConfirmErrorMessage = ref<string>("");
 const passwordConfirmInputValue = ref<string>("");
 
+const handleEmailInput = () => {
+  console.log("Email input");
+  inputState.value = "";
+  errorMessage.value = "";
+};
+
 const handleBtnClick = () => {
+  if (!isEmailValid(emailInputValue.value)) {
+    console.log("Here");
+    inputState.value = "error";
+    errorMessage.value = "Please enter a valid email address";
+    return;
+  }
+
   if (passwordInputValue.value === "") {
     passwordInputState.value = "error";
     passwordErrorMessage.value = "Please check again";
@@ -72,6 +86,7 @@ const handleBtnClick = () => {
           id="emailInput"
           icon="email"
           v-model="emailInputValue"
+          @input="handleEmailInput"
         />
         <Input
           type="password"

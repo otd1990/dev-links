@@ -28,7 +28,7 @@ const emits = defineEmits<{
   (e: "update:modelValue", value: string | number): void;
 }>();
 
-const inputValue = ref(props.modelValue);
+const inputValue = ref<string | number>(props.modelValue);
 
 const updateValue = (event: Event) => {
   inputValue.value = (event.target as HTMLInputElement).value;
