@@ -4,7 +4,7 @@ import Input from "../Input/Input.vue";
 import Select from "../Select/Select.vue";
 
 const emits = defineEmits<{
-  (e: "linkUpdate", value: string): void;
+  (e: "linkUpdate", value: string, isURLValid: boolean): void;
   (e: "typeUpdate", value: string, iconName: string): void;
 }>();
 
@@ -36,9 +36,17 @@ const options = [
   { label: "YouTube", iconName: "youtube" },
 ];
 
+const isValidURL = (link: string) => {
+  const regex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
+
+  return regex.test(link);
+};
+
 const handleInput = (e: Event) => {
   const value = (e.target as HTMLInputElement).value;
-  emits("linkUpdate", value);
+  const validURL = isValidURL(value);
+
+  emits("linkUpdate", value, validURL);
 };
 
 watch(type, (newType: string, _) => {

@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import LogoLg from "../../assets/images/logo-devlinks-large.svg";
+import LogoSm from "../../assets/images/logo-devlinks-small.svg";
 import Input from "../../components/Input/Input.vue";
 import Button from "../../components/Button/Button.vue";
+import isEmailValid from "../../helpers/isEmailValid";
 
 const inputState = ref<string>("");
 const errorMessage = ref<string>("");
@@ -15,7 +18,18 @@ const passwordConfirmInputState = ref<string>("");
 const passwordConfirmErrorMessage = ref<string>("");
 const passwordConfirmInputValue = ref<string>("");
 
+const handleEmailInput = () => {
+  inputState.value = "";
+  errorMessage.value = "";
+};
+
 const handleBtnClick = () => {
+  if (!isEmailValid(emailInputValue.value)) {
+    inputState.value = "error";
+    errorMessage.value = "Please enter a valid email address";
+    return;
+  }
+
   if (passwordInputValue.value === "") {
     passwordInputState.value = "error";
     passwordErrorMessage.value = "Please check again";
@@ -53,7 +67,10 @@ const handleBtnClick = () => {
 
 <template>
   <article class="container-md">
-    <h1>devlinks</h1>
+    <h1 aria-label="Devlinks logo">
+      <LogoLg class="desktop-show" />
+      <LogoSm class="mobile-show" />
+    </h1>
     <section class="create-account">
       <h2>Create Account</h2>
       <p>Let's get you started sharing your links!</p>
@@ -67,6 +84,7 @@ const handleBtnClick = () => {
           id="emailInput"
           icon="email"
           v-model="emailInputValue"
+          @input="handleEmailInput"
         />
         <Input
           type="password"

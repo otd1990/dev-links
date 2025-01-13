@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import LoginView from "./LoginView/LoginView.vue";
+import LogoLg from "../assets/images/logo-devlinks-large.svg";
+import LogoSm from "../assets/images/logo-devlinks-small.svg";
 </script>
 
 <template>
   <article class="container-md">
-    <h1>devlinks</h1>
+    <h1 aria-label="Devlinks logo">
+      <LogoLg class="desktop-show" />
+      <LogoSm class="mobile-show" />
+    </h1>
     <LoginView />
   </article>
 </template>

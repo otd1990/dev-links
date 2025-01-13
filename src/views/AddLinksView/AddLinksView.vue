@@ -9,7 +9,7 @@ import GetStartedIcon from "../../assets/images/illustration-empty.svg";
 import AddLinkForm from "../../components/AddLinkForm/AddLinkForm.vue";
 import IconPreview from "../../components/IconPreview/IconPreview.vue";
 import Alert from "../../components/Alert/Alert.vue";
-import getColorForType from "../../composables/getColorForType";
+import getColorForType from "../../helpers/getColorForType";
 
 interface Link {
   type: string;
@@ -46,7 +46,12 @@ const handleAddLink = () => {
   btnDisabled.value = false;
 };
 
-const handleLinkUpdate = (index: number, link: string) => {
+const handleLinkUpdate = (index: number, link: string, isURLValid: boolean) => {
+  if (!isURLValid) {
+    btnDisabled.value = true;
+    return;
+  }
+
   formsData.value[index].url = link;
   btnDisabled.value = false;
 };
@@ -147,7 +152,7 @@ const handleOrderChange = (updateLinks: any) => {
                   <AddLinkForm
                     :link="form.url"
                     :type="form.type"
-                    @linkUpdate="handleLinkUpdate(index, $event)"
+                    @linkUpdate="(value: string, isURLValid: boolean) => handleLinkUpdate(index, value, isURLValid)"
                     @typeUpdate="(type: string, icon: string) => handleTypeUpdate(index, type, icon)"
                   />
                 </article>

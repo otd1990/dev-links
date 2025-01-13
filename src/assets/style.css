@@ -46,10 +46,28 @@ main {
 }
 
 .error-message {
-  color: #ff3939;
+  color: #ff3939 !important;
   margin-bottom: 0.5rem;
 }
 
 .align-self-center {
   align-self: center;
+}
+
+.desktop-show {
+  display: block;
+}
+
+.mobile-show {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .desktop-show {
+    display: none;
+  }
+
+  .mobile-show {
+    display: block;
+  }
 }

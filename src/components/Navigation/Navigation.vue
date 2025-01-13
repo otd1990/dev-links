@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import LogoLg from "../../assets/images/logo-devlinks-large.svg";
+import LogoSm from "../../assets/images/logo-devlinks-small.svg";
 import Button from "../Button/Button.vue";
 import LinkIcon from "../../assets/images/icon-link.svg";
 import ProfileDetails from "../../assets/images/icon-profile-details-header.svg";
@@ -35,7 +37,10 @@ const shareLink = () => {
       v-if="theme === 'primary'"
       class="navigation__primary navigation__wrapper"
     >
-      <h1 class="navigation__logo">devlinks</h1>
+      <h1 class="navigation__logo">
+        <LogoLg class="desktop-show" />
+        <LogoSm class="mobile-show" />
+      </h1>
       <nav class="navigation__nav">
         <ul class="navigation__nav-list">
           <li

@@ -3,6 +3,7 @@ import { ref } from "vue";
 import Input from "../../components/Input/Input.vue";
 import Button from "../../components/Button/Button.vue";
 import { useRouter } from "vue-router";
+import isEmailValid from "../../helpers/isEmailValid";
 
 const router = useRouter();
 
@@ -14,7 +15,18 @@ const passwordInputState = ref<string>("");
 const passwordErrorMessage = ref<string>("");
 const passwordInputValue = ref<string>("");
 
+const handleEmailInput = () => {
+  inputState.value = "";
+  errorMessage.value = "";
+};
+
 const handleBtnClick = () => {
+  if (!isEmailValid(emailInputValue.value)) {
+    inputState.value = "error";
+    errorMessage.value = "Please enter a valid email address";
+    return;
+  }
+
   if (passwordInputValue.value === "") {
     passwordInputState.value = "error";
     passwordErrorMessage.value = "Please check again";
@@ -54,6 +66,7 @@ const handleBtnClick = () => {
         id="emailInput"
         icon="email"
         v-model="emailInputValue"
+        @input="handleEmailInput"
       />
       <Input
         type="password"
