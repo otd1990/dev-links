@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import LogoLg from "../../assets/images/logo-devlinks-large.svg";
+import LogoSm from "../../assets/images/logo-devlinks-small.svg";
 import Input from "../../components/Input/Input.vue";
 import Button from "../../components/Button/Button.vue";
 
@@ -53,7 +55,10 @@ const handleBtnClick = () => {
 
 <template>
   <article class="container-md">
-    <h1>devlinks</h1>
+    <h1 aria-label="Devlinks logo">
+      <LogoLg class="desktop-show" />
+      <LogoSm class="mobile-show" />
+    </h1>
     <section class="create-account">
       <h2>Create Account</h2>
       <p>Let's get you started sharing your links!</p>

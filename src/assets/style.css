@@ -53,3 +53,21 @@ main {
 .align-self-center {
   align-self: center;
 }
+
+.desktop-show {
+  display: block;
+}
+
+.mobile-show {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .desktop-show {
+    display: none;
+  }
+
+  .mobile-show {
+    display: block;
+  }
+}

@@ -36,8 +36,22 @@ const options = [
   { label: "YouTube", iconName: "youtube" },
 ];
 
+const isValidURL = (link: string) => {
+  const regex =
+    /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
+
+  return regex.test(link);
+};
+
 const handleInput = (e: Event) => {
   const value = (e.target as HTMLInputElement).value;
+
+  if (!isValidURL(value)) {
+    return;
+  }
+
+  console.log("VALUE ", value);
+
   emits("linkUpdate", value);
 };
 
