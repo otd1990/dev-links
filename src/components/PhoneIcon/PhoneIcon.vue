@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import getIconPath from "../../composables/getIconPath";
-import getColorForType from "../../composables/getColorForType";
+import getIconPath from "../../helpers/getIconPath";
+import getColorForType from "../../helpers/getColorForType";
 
 interface IProps {
   links: any;

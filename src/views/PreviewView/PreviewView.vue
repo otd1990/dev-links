@@ -4,7 +4,7 @@ import Alert from "../../components/Alert/Alert.vue";
 import RightArrow from "../../assets/images/icon-arrow-right.svg";
 import CopiedLink from "../../assets/images/icon-link-copied-to-clipboard.svg";
 import Navigation from "../../components/Navigation/Navigation.vue";
-import getIconPath from "../../composables/getIconPath";
+import getIconPath from "../../helpers/getIconPath";
 
 const defaultProfileDetails = {
   pic: "",

@@ -9,7 +9,7 @@ import GetStartedIcon from "../../assets/images/illustration-empty.svg";
 import AddLinkForm from "../../components/AddLinkForm/AddLinkForm.vue";
 import IconPreview from "../../components/IconPreview/IconPreview.vue";
 import Alert from "../../components/Alert/Alert.vue";
-import getColorForType from "../../composables/getColorForType";
+import getColorForType from "../../helpers/getColorForType";
 
 interface Link {
   type: string;

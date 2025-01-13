@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import getIconPath from "../../composables/getIconPath";
+import getIconPath from "../../helpers/getIconPath";
 
 interface IInputProps {
   type: string;

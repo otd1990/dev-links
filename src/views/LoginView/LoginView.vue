@@ -3,7 +3,7 @@ import { ref } from "vue";
 import Input from "../../components/Input/Input.vue";
 import Button from "../../components/Button/Button.vue";
 import { useRouter } from "vue-router";
-import isEmailValid from "../../composables/isEmailValid";
+import isEmailValid from "../../helpers/isEmailValid";
 
 const router = useRouter();
 

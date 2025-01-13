@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import getIconPath from "../../composables/getIconPath";
+import getIconPath from "../../helpers/getIconPath";
 import DownChev from "../../assets/images/icon-chevron-down.svg";
 
 interface Option {
