@@ -46,8 +46,6 @@ const handleInput = (e: Event) => {
   const value = (e.target as HTMLInputElement).value;
   const validURL = isValidURL(value);
 
-  console.log("VALUE ", value, " validURL ", validURL);
-
   emits("linkUpdate", value, validURL);
 };
 

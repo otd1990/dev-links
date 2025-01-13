@@ -25,7 +25,6 @@ const handleEmailInput = () => {
 
 const handleBtnClick = () => {
   if (!isEmailValid(emailInputValue.value)) {
-    console.log("Here");
     inputState.value = "error";
     errorMessage.value = "Please enter a valid email address";
     return;
